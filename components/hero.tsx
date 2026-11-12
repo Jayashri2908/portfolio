@@ -1,125 +1,148 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ChevronRight, Sparkles } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { scrollTo } from "@/lib/utils";
-import { siteConfig, techMarquee } from "@/lib/data";
-import SplitText from "@/components/ui/split-text";
-import Magnetic from "@/components/ui/magnetic";
-import ParticleField from "@/components/canvas/particle-field";
-import Marquee from "@/components/ui/marquee";
-import TechStackSphere from "@/components/canvas/tech-stack-sphere";
+import { ArrowDown } from "lucide-react";
+import FadeIn from "@/components/ui/fade-in";
+import Panel from "@/components/ui/panel";
+import TechTicker from "@/components/ui/tech-ticker";
+import TronButton from "@/components/ui/tron-button";
+import { heroStats, siteConfig } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[calc(100vh-5rem)] flex-col justify-center pt-24 xl:pt-28"
+      className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden pb-0 pt-24 md:pt-28"
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <ParticleField density={50} color="160, 180, 255" className="absolute inset-0 h-full w-full" />
-        <motion.div
-          className="absolute -left-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-primary/15 blur-[140px]"
-          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute -right-1/4 bottom-1/4 h-[500px] w-[500px] rounded-full bg-secondary/10 blur-[140px]"
-          animate={{ x: [0, -50, 0], y: [0, -30, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
+      <div className="container flex flex-1 flex-col">
+        <FadeIn y={-10} duration={0.5}>
+          <div className="inline-flex items-center gap-3 border border-tron-cyan/40 bg-tron-cyan/[0.03] px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em]">
+            <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-tron-cyan shadow-glow-cyan" />
+            <span className="text-tron-cyan">// SYSTEM ONLINE</span>
+            <span className="text-tron-dim">·</span>
+            <span className="text-tron-text/55">2026</span>
+          </div>
+        </FadeIn>
 
-      <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
-        <div className="flex flex-col items-start">
-          <h1 className="font-display text-5xl font-light leading-[0.95] tracking-tighter text-foreground md:text-6xl xl:text-7xl 2xl:text-8xl">
-            <span className="block">
-              <SplitText text="Hello, I'm" delay={1.1} />
+        <FadeIn delay={0.1} y={30} className="mt-7">
+          <h1 className="font-display font-black uppercase leading-[0.85] tracking-tight">
+            <span className="block text-[clamp(3.1rem,12vw,8.75rem)] neon-cyan">
+              {siteConfig.firstName}
             </span>
-            <span className="block">
-              <SplitText
-                text="Jayashri."
-                delay={1.3}
-                staggerChildren={0.04}
-                className="text-gradient font-display font-semibold"
-              />
+            <span className="mt-1 flex flex-wrap items-baseline gap-x-5 gap-y-2">
+              <span className="text-[clamp(1.7rem,5.6vw,4rem)] text-tron-text/80">
+                Utrankar
+              </span>
+              <span className="font-mono text-[10px] font-normal uppercase tracking-[0.24em] text-tron-dim md:text-xs">
+                // B.Tech CSE &apos;27
+              </span>
             </span>
           </h1>
+        </FadeIn>
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.7 }}
-            className="mt-6 max-w-xl text-base tracking-tight text-muted-foreground md:text-lg xl:text-xl"
-          >
-            I build production systems at the edge of AI and the 3D web.
-            Currently shipping 3D dashboards at{" "}
-            <span className="text-foreground">Wilo</span>.
-          </motion.p>
+        <div className="mt-8 grid items-end gap-8 lg:grid-cols-[1.35fr_1fr]">
+          <FadeIn delay={0.2} y={20}>
+            <p className="max-w-2xl font-mono text-sm leading-relaxed text-tron-text/80 md:text-base">
+              <span className="mr-2 text-tron-orange">▸</span>
+              ML Engineer.{" "}
+              <span className="mr-2 text-tron-orange">▸</span>
+              Full-Stack Developer.{" "}
+              <span className="mr-2 text-tron-orange">▸</span>
+              ML Intern @ Wilo.
+              <span className="mt-2 block text-tron-text/55">
+                Building at the edge of{" "}
+                <span className="text-tron-cyan">artificial intelligence</span>{" "}
+                and the <span className="text-tron-cyan">modern web</span>.
+              </span>
+            </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.85 }}
-            className="mt-8 flex flex-wrap items-center gap-3"
-          >
-            <Magnetic strength={0.25}>
-              <Link href={`mailto:${siteConfig.email}`} passHref>
-                <Button size="lg" data-cursor="hover">
-                  Get in touch <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
-              </Link>
-            </Magnetic>
-            <Magnetic strength={0.25}>
-              <Button
-                variant="outline"
-                size="lg"
-                data-cursor="hover"
-                onClick={() => scrollTo(document.querySelector("#projects"))}
-              >
-                <Sparkles className="mr-1 h-4 w-4" />
-                See my work
-              </Button>
-            </Magnetic>
-          </motion.div>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <TronButton href="#projects" variant="cyan">
+                View work
+              </TronButton>
+              <TronButton href="#contact" variant="orange">
+                Initiate contact
+              </TronButton>
+              <TronButton href={siteConfig.resume} variant="ghost" download>
+                Download CV
+              </TronButton>
+            </div>
+          </FadeIn>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 2.1 }}
-            className="mt-10 font-mono text-xs text-muted-foreground"
-          >
-            B.Tech CSE &apos;27 · Vishwakarma University, Pune
-          </motion.div>
+          <FadeIn delay={0.3} y={20}>
+            <Panel className="p-5" grid>
+              <div className="flex items-center justify-between border-b border-tron-line pb-2 font-mono text-[9px] uppercase tracking-[0.2em] text-tron-dim">
+                <span>SYSTEM_PROFILE</span>
+                <span className="text-tron-cyan">READY</span>
+              </div>
+              <dl className="mt-3 space-y-2.5 font-mono text-[11px]">
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="tracking-[0.14em] text-tron-dim">CURRENT</dt>
+                  <dd className="text-right text-tron-text/80">
+                    ML + Full-Stack Intern @ Wilo
+                  </dd>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="tracking-[0.14em] text-tron-dim">LOCATION</dt>
+                  <dd className="text-right text-tron-text/80">
+                    {siteConfig.shortLocation}
+                  </dd>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="tracking-[0.14em] text-tron-dim">FOCUS</dt>
+                  <dd className="text-right text-tron-text/80">
+                    Applied ML · Full-stack
+                  </dd>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="tracking-[0.14em] text-tron-dim">STATUS</dt>
+                  <dd className="text-right text-tron-cyan">B.Tech CSE &apos;27</dd>
+                </div>
+              </dl>
+            </Panel>
+          </FadeIn>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto w-full max-w-[420px] aspect-square lg:max-w-none"
-        >
-          <div className="absolute inset-0 -z-10 rounded-full bg-primary/10 blur-3xl" />
-          <TechStackSphere className="absolute inset-0 h-full w-full" />
-          <div className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/40">
-            drag to explore
+        <FadeIn delay={0.4} y={20} className="mt-10">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            {heroStats.map((stat, index) => (
+              <Panel
+                key={stat.label}
+                accent={stat.accent}
+                className="px-4 py-4 md:px-5 md:py-5"
+              >
+                <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.2em] text-tron-dim">
+                  <span>{stat.label}</span>
+                  <span>0{index + 1}</span>
+                </div>
+                <div
+                  className={cn(
+                    "mt-2 font-display text-2xl font-bold tracking-wide md:text-3xl",
+                    stat.accent === "cyan" ? "text-tron-cyan" : "text-tron-orange"
+                  )}
+                >
+                  {stat.value}
+                </div>
+                <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-tron-dim">
+                  {stat.note}
+                </div>
+              </Panel>
+            ))}
           </div>
-        </motion.div>
+        </FadeIn>
+
+        <div className="mt-auto hidden items-center gap-3 pt-10 md:flex">
+          <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-tron-dim">
+            Scroll to explore
+          </span>
+          <span className="h-px w-16 bg-gradient-to-r from-tron-cyan/60 to-transparent" />
+          <ArrowDown className="h-3 w-3 animate-bounce text-tron-cyan/70" />
+          <span className="ml-auto font-mono text-[9px] uppercase tracking-[0.2em] text-tron-dim">
+            [ 06 sections ]
+          </span>
+        </div>
       </div>
 
-      <div className="absolute -bottom-10 left-0 right-0 overflow-hidden">
-        <Marquee speed={50} className="py-3 opacity-60">
-          {techMarquee.map((tech) => (
-            <span
-              key={tech}
-              className="font-mono text-xs uppercase tracking-widest text-muted-foreground"
-            >
-              ✦ {tech}
-            </span>
-          ))}
-        </Marquee>
+      <div className="mt-6 md:mt-12">
+        <TechTicker />
       </div>
     </section>
   );

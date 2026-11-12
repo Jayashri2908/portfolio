@@ -1,91 +1,76 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { aboutStats } from "@/lib/data";
-import Counter from "@/components/ui/counter";
-import CodeBlock from "@/components/visuals/code-block";
+import FadeIn from "@/components/ui/fade-in";
+import Panel from "@/components/ui/panel";
+import SectionHeading from "@/components/ui/section-heading";
+import { aboutFacts, aboutParagraphs } from "@/lib/data";
 
 export default function About() {
   return (
-    <section id="about" className="py-24 xl:py-32">
-      <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <span className="text-gradient font-display text-sm font-semibold tracking-tighter">
-            ⟶ About
-          </span>
-          <h2 className="font-display mt-3 text-3xl font-light leading-[1.1] tracking-tighter text-foreground xl:text-[40px]">
-            B.Tech Computer Science at{" "}
-            <a
-              href="https://www.vupune.ac.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gradient font-display font-semibold"
-            >
-              Vishwakarma University
-            </a>{" "}
-            with a focus on machine learning, computer vision, and modern web
-            engineering.
-          </h2>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
-            I&apos;ve shipped microservices for AI image upscaling, full-stack
-            platforms with React + Firebase, and 3D visualization dashboards
-            for industrial applications — all while publishing research on AI
-            in healthcare and contributing to open-source projects.
-          </p>
+    <section id="about" className="relative py-20 md:py-28">
+      <div className="container">
+        <FadeIn>
+          <SectionHeading
+            number="01"
+            title="About"
+            meta="// WHO I AM"
+            accent="cyan"
+          />
+        </FadeIn>
 
-          <a
-            href="/Jayashri_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="hover"
-            className="group mt-8 inline-flex items-center gap-2 text-sm text-foreground transition-colors hover:text-primary"
-          >
-            <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground group-hover:text-primary">
-              Read full resume
-            </span>
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
-          </a>
-        </motion.div>
+        <div className="grid gap-6 lg:grid-cols-5">
+          <FadeIn delay={0.05} className="lg:col-span-3">
+            <Panel className="h-full p-6 md:p-8">
+              <div className="mb-5 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.22em] text-tron-dim">
+                <span className="h-1.5 w-1.5 rounded-full bg-tron-cyan" />
+                PROFILE // SUMMARY
+              </div>
+              <div className="space-y-4 text-[15px] leading-relaxed text-tron-text/75 md:text-base">
+                {aboutParagraphs.map((paragraph, index) => (
+                  <p key={paragraph}>
+                    {index === 0 ? (
+                      <span className="float-left mr-3 mt-1 font-display text-4xl font-bold leading-none text-tron-cyan">
+                        J
+                      </span>
+                    ) : null}
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <CodeBlock />
-        </motion.div>
-      </div>
+              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-tron-line/70 pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-tron-dim">
+                <span>
+                  <span className="text-tron-cyan">▸</span> Applied ML
+                </span>
+                <span>
+                  <span className="text-tron-cyan">▸</span> Full-stack
+                </span>
+                <span>
+                  <span className="text-tron-cyan">▸</span> Computer vision
+                </span>
+                <span>
+                  <span className="text-tron-cyan">▸</span> 3D web
+                </span>
+              </div>
+            </Panel>
+          </FadeIn>
 
-      <div className="mt-16 grid grid-cols-2 gap-8 xl:mt-20 xl:grid-cols-3">
-        {aboutStats.map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            viewport={{ once: true }}
-            className="group relative overflow-hidden border-t border-white/10 pt-6"
-          >
-            <div className="absolute inset-x-0 top-0 h-px w-12 origin-left scale-x-0 bg-gradient-to-r from-primary to-secondary transition-transform duration-500 group-hover:scale-x-100" />
-            <span className="text-gradient font-display block text-5xl font-semibold tracking-tight xl:text-6xl">
-              {stat.value === 3 ? (
-                <span>2 + 1</span>
-              ) : (
-                <Counter to={stat.value} suffix={stat.suffix} />
-              )}
-            </span>
-            <span className="mt-2 block text-sm tracking-tight text-muted-foreground xl:text-base">
-              {stat.label}
-            </span>
-          </motion.div>
-        ))}
+          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-1">
+            {aboutFacts.map((fact, index) => (
+              <FadeIn key={fact.label} delay={0.1 + index * 0.06}>
+                <Panel
+                  accent={index % 2 === 0 ? "cyan" : "orange"}
+                  className="p-5"
+                >
+                  <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-tron-dim">
+                    {fact.label}
+                  </div>
+                  <div className="mt-1.5 font-mono text-sm text-tron-text/85">
+                    {fact.value}
+                  </div>
+                </Panel>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

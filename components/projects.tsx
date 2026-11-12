@@ -1,174 +1,136 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from "@/components/ui/carousel";
-import { projects } from "@/lib/data";
-import UpscalerViz from "@/components/visuals/upscaler-viz";
-import FdpViz from "@/components/visuals/fdp-viz";
-import BaldnessViz from "@/components/visuals/baldness-viz";
-import PumpViz from "@/components/visuals/pump-viz";
+import FadeIn from "@/components/ui/fade-in";
+import Panel from "@/components/ui/panel";
+import SectionHeading from "@/components/ui/section-heading";
+import Tag from "@/components/ui/tag";
+import TronButton from "@/components/ui/tron-button";
+import { ProjectVisual } from "@/components/project-visuals";
+import { projects, type Project } from "@/lib/data";
 
-const vizMap: Record<string, React.ComponentType> = {
-  upscaler: UpscalerViz,
-  fdp: FdpViz,
-  baldness: BaldnessViz,
-  pump: PumpViz,
-};
-
-function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 200, damping: 20 });
-  const sy = useSpring(y, { stiffness: 200, damping: 20 });
-  const rotateX = useTransform(sy, [-100, 100], [6, -6]);
-  const rotateY = useTransform(sx, [-100, 100], [-6, 6]);
-
+function ProjectMeta({ project }: { project: Project }) {
   return (
-    <motion.div
-      onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        x.set(e.clientX - r.left - r.width / 2);
-        y.set(e.clientY - r.top - r.height / 2);
-      }}
-      onMouseLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <div className="flex flex-wrap items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em]">
+      <span className="text-tron-dim">
+        {project.number} // {project.category}
+      </span>
+      {project.status ? (
+        <span
+          className={
+            project.accent === "cyan"
+              ? "border border-tron-cyan/40 bg-tron-cyan/[0.05] px-2 py-0.5 text-tron-cyan"
+              : "border border-tron-orange/40 bg-tron-orange/[0.05] px-2 py-0.5 text-tron-orange"
+          }
+        >
+          {project.status}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
+function ProjectBody({ project }: { project: Project }) {
+  return (
+    <>
+      <ProjectMeta project={project} />
+      <h3
+        className={`mt-3 font-display font-bold uppercase tracking-wide ${
+          project.featured ? "text-3xl md:text-4xl" : "text-xl md:text-2xl"
+        } ${project.accent === "cyan" ? "text-tron-cyan" : "text-tron-text"}`}
+      >
+        {project.name}
+      </h3>
+      <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-tron-text/50">
+        // {project.tagline}
+      </p>
+      <p className="mt-4 text-sm leading-relaxed text-tron-text/70">
+        {project.description}
+      </p>
+
+      <ul className="mt-4 space-y-2">
+        {project.bullets.map((bullet) => (
+          <li
+            key={bullet}
+            className="flex gap-2.5 font-mono text-[11px] leading-relaxed text-tron-text/65 md:text-[12px]"
+          >
+            <span
+              className={`mt-0.5 shrink-0 ${
+                project.accent === "cyan" ? "text-tron-cyan" : "text-tron-orange"
+              }`}
+            >
+              ▸
+            </span>
+            <span>{bullet}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-5 flex flex-wrap gap-2">
+        {project.tech.map((tech, index) => (
+          <Tag key={tech} accent={index % 2 === 0 ? "cyan" : "orange"}>
+            {tech}
+          </Tag>
+        ))}
+      </div>
+
+      <div className="mt-6">
+        <TronButton
+          href={project.href}
+          variant={project.accent === "cyan" ? "cyan" : "orange"}
+          external
+          className="px-4 py-2.5"
+        >
+          {project.hrefLabel}
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </TronButton>
+      </div>
+    </>
   );
 }
 
 export default function Projects() {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!api) return;
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    });
-  }, [api]);
+  const featured = projects.find((project) => project.featured) ?? projects[0];
+  const rest = projects.filter((project) => project !== featured);
 
   return (
-    <section id="projects" className="py-24 xl:py-32">
-      <div className="pointer-events-none absolute inset-x-0 -z-10 -mt-40 overflow-hidden">
-        <div
-          className="absolute left-1/2 aspect-[1155/678] w-[80rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary/20 via-primary/10 to-secondary/20 opacity-20 blur-3xl"
-          style={{
-            clipPath:
-              "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-          }}
-        />
-      </div>
+    <section id="projects" className="relative py-20 md:py-28">
+      <div className="container">
+        <FadeIn>
+          <SectionHeading
+            number="03"
+            title="Projects"
+            meta="// SELECTED BUILDS"
+            accent="cyan"
+          />
+        </FadeIn>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        <span className="text-gradient font-display text-sm font-semibold tracking-tighter">
-          ✨ Selected work
-        </span>
-        <h2 className="font-display mt-3 text-4xl font-semibold tracking-tighter xl:text-6xl">
-          Things I&apos;ve shipped.
-        </h2>
-        <p className="mt-2 max-w-2xl text-base tracking-tight text-muted-foreground xl:text-lg">
-          From ML pipelines to production web apps — a small slice of the last
-          year.
-        </p>
-      </motion.div>
-
-      <div className="mt-12">
-        <Carousel setApi={setApi} className="w-full">
-          <CarouselContent>
-            {projects.map((project, idx) => {
-              const Viz = vizMap[project.visual];
-              return (
-                <CarouselItem
-                  key={project.title}
-                  className="md:basis-3/4 lg:basis-1/2"
-                >
-                  <TiltCard className="h-full">
-                    <motion.div
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: idx * 0.05 }}
-                      viewport={{ once: true }}
-                      className="group relative h-full overflow-hidden rounded-2xl border border-white/5 bg-background/40 backdrop-blur"
-                      data-cursor="hover"
-                    >
-                      <Link
-                        href={project.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block"
-                      >
-                        <div className="relative aspect-[16/10] overflow-hidden">
-                          {Viz && <Viz />}
-                          <div className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-background/80 text-foreground opacity-0 backdrop-blur transition-all group-hover:opacity-100 group-hover:rotate-45">
-                            <ArrowUpRight className="h-4 w-4" />
-                          </div>
-                          <div className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-widest text-white/60">
-                            0{idx + 1} / 0{projects.length}
-                          </div>
-                        </div>
-                      </Link>
-
-                      <div className="border-t border-white/5 bg-background/60 p-6 backdrop-blur">
-                        <h3 className="font-display text-xl font-medium tracking-tight text-foreground">
-                          {project.title}
-                        </h3>
-                        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                          {project.description}
-                        </p>
-                        <div className="mt-4 flex flex-wrap gap-1.5">
-                          {project.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[11px] text-muted-foreground"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  </TiltCard>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-          <div className="mt-8 flex items-center justify-between">
-            <div className="font-mono text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">
-                {String(current).padStart(2, "0")}
-              </span>{" "}
-              / {String(count).padStart(2, "0")} projects
+        <FadeIn>
+          <Panel className="p-5 md:p-7">
+            <div className="grid items-stretch gap-6 lg:grid-cols-[1.05fr_1fr]">
+              <div className="order-2 flex flex-col justify-center lg:order-1">
+                <ProjectBody project={featured} />
+              </div>
+              <div className="order-1 lg:order-2">
+                <ProjectVisual variant={featured.visual} />
+              </div>
             </div>
-            <div className="flex gap-2">
-              <CarouselPrevious className="static translate-x-0 translate-y-0" />
-              <CarouselNext className="static translate-x-0 translate-y-0" />
-            </div>
-          </div>
-        </Carousel>
+          </Panel>
+        </FadeIn>
+
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          {rest.map((project, index) => (
+            <FadeIn key={project.name} delay={0.08 + index * 0.08}>
+              <Panel
+                accent={project.accent}
+                className="flex h-full flex-col p-5 md:p-6"
+              >
+                <ProjectVisual variant={project.visual} />
+                <div className="mt-5 flex flex-1 flex-col">
+                  <ProjectBody project={project} />
+                </div>
+              </Panel>
+            </FadeIn>
+          ))}
+        </div>
       </div>
     </section>
   );

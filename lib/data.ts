@@ -1,13 +1,15 @@
 export const siteConfig = {
   name: "Jayashri Utrankar",
-  title: "Jayashri Utrankar",
+  fullName: "Jayashri Dilip Utrankar",
+  firstName: "Jayashri",
+  role: "ML Engineer & Full-Stack Developer",
   description:
-    "ML Engineer & Full-Stack Developer. B.Tech CSE '27 at Vishwakarma University.",
+    "B.Tech CSE '27 at Vishwakarma University. I build production ML and full-stack systems — from impeller-sizing models to platforms used by 10K+ people.",
   email: "jayashriutrankar@gmail.com",
-  location: "Pune, India",
-  timezone: "UTC+5:30",
-  url: "https://jayashri.dev",
-  ogImage: "/og-image.png",
+  location: "Pune, Maharashtra, India",
+  shortLocation: "Pune, IN",
+  timezone: "Asia/Kolkata",
+  resume: "/resume.pdf",
   social: {
     github: "https://github.com/Jayashri2908",
     linkedin: "https://linkedin.com/in/jayashri29",
@@ -15,152 +17,263 @@ export const siteConfig = {
   },
 };
 
-export const techMarquee = [
-  "PyTorch",
-  "TypeScript",
-  "React Three Fiber",
-  "Docker",
-  "Real-ESRGAN",
-  "Firebase",
-  "OpenCV",
-  "Tailwind CSS",
-  "LangChain",
-  "Three.js",
-  "Framer Motion",
-  "FastAPI",
-  "Hugging Face",
-  "Next.js",
+export const navLinks = [
+  { href: "#about", index: "01", text: "About" },
+  { href: "#experience", index: "02", text: "Experience" },
+  { href: "#projects", index: "03", text: "Projects" },
+  { href: "#research", index: "04", text: "Research" },
+  { href: "#capabilities", index: "05", text: "Capabilities" },
+  { href: "#contact", index: "06", text: "Contact" },
 ];
 
-export const aboutStats = [
-  { label: "CGPA", value: 8.55, suffix: "", display: "8.55" },
-  { label: "LeetCode problems solved", value: 150, suffix: "+", display: "150+" },
-  { label: "Publications + copyright", value: 3, suffix: "", display: "2 + 1" },
+export const heroStats = [
+  { label: "CGPA", value: "8.66", note: "B.Tech CSE", accent: "cyan" as const },
+  { label: "LeetCode", value: "300+", note: "Problems solved", accent: "orange" as const },
+  { label: "Projects", value: "03", note: "Shipped builds", accent: "cyan" as const },
+  { label: "Research", value: "02", note: "Paper + copyright", accent: "orange" as const },
+];
+
+export const aboutParagraphs = [
+  "B.Tech CSE student at Vishwakarma University (CGPA 8.66, class of 2027). I build production systems where machine learning meets the modern web — and I care as much about the interface as the model behind it.",
+  "Currently an ML and Full-Stack Intern at Wilo Mather and Platt, where I built a pump sizing platform that predicts impeller trim diameter with 0.99 mm MAE — from the TabM/XGBoost models to a FastAPI backend, React frontend, and packaged Windows desktop app.",
+  "I have shipped a 10K+ user FDP platform with a Government of India copyright, an AI upscaling pipeline on Docker microservices, and an ML-based baldness detection system with a manuscript and patent under review. My oncology research was published at ICSCDS 2025.",
+];
+
+export const aboutFacts = [
+  { label: "Location", value: "Pune, India" },
+  { label: "Current", value: "ML + Full-Stack Intern @ Wilo" },
+  { label: "Focus", value: "Applied ML · Computer vision · Full-stack" },
+  { label: "Spoken", value: "English · Hindi · Marathi" },
 ];
 
 export const experiences = [
   {
-    type: "work",
-    role: "ML Engineering Intern",
-    title: "Frontend + 3D Web Developer",
-    org: "Wilo Mather and Platt Pumps",
-    period: "Aug 2025 — Present",
+    role: "ML and Full-Stack Intern",
+    org: "Wilo Mather and Platt",
     location: "Pune, India",
-    description:
-      "Building a 3D visualization dashboard for industrial pumps using React Three Fiber. Real-time data, GLTF models, and Framer Motion transitions.",
+    period: "Jan 2026 — Present",
+    status: "ACTIVE",
+    summary:
+      "Building an ML-powered pump sizing platform that predicts impeller trim diameter and ships as a fully local Windows desktop application.",
     bullets: [
-      "Shipped interactive 3D pump models with real-time telemetry",
-      "Reduced dashboard load time by 60% with custom render pipeline",
+      "Built an ML-powered pump sizing platform (FastAPI + React) predicting impeller trim diameter with 0.99 mm MAE using TabM and XGBoost models with physics-informed losses (affinity-law residuals).",
+      "Engineered a FastAPI backend with 12 REST endpoints (Pydantic v2 validation, API-key auth, SQLite persistence) and a React 19 + TypeScript frontend (25+ components, ApexCharts, PDF/DOCX export) consuming SSE-streamed APIs.",
+      "Packaged as a Windows desktop app (Electron + NSIS installer) with GPU/CPU detection and fully local, zero-egress inference — KD-Tree analog search in under 10 ms, CPU-only serving.",
     ],
-  },
-  {
-    type: "work",
-    role: "Research Intern (Oncology AI)",
-    title: "Cancer Research with ML",
-    org: "Ashoka Cancer Hospital",
-    period: "May 2025 — Jul 2025",
-    location: "Pune, India",
-    description:
-      "Worked on AI-driven oncology research. Published a paper in an international journal on machine learning for cancer detection.",
-    bullets: [
-      "Co-authored a publication in AI for healthcare",
-      "Built preprocessing pipelines for histopathology data",
-    ],
-  },
-  {
-    type: "education",
-    role: "B.Tech Computer Science",
-    title: "Engineering",
-    org: "Vishwakarma University",
-    period: "2023 — 2027",
-    location: "Pune, India",
-    description:
-      "Coursework in ML systems, computer graphics, distributed systems, and modern web engineering.",
-    bullets: [
-      "CGPA 8.55 (current)",
-      "Hackathon wins and project leads",
+    tech: [
+      "FastAPI",
+      "React 19",
+      "TypeScript",
+      "TabM",
+      "XGBoost",
+      "Electron",
+      "SQLite",
+      "SSE",
     ],
   },
 ];
 
-export const projects = [
+export const leadership = {
+  role: "Visionary Core Member",
+  org: "Visionary Club, Vishwakarma University",
+  period: "Jan 2024 — Present",
+  summary:
+    "Drive innovative projects through strategic planning and organized events; mentor new members and promote club objectives, fostering creativity and community engagement.",
+};
+
+export type Project = {
+  number: string;
+  name: string;
+  tagline: string;
+  category: string;
+  status?: string;
+  description: string;
+  bullets: string[];
+  tech: string[];
+  href: string;
+  hrefLabel: string;
+  secondaryHref?: string;
+  visual: "upscaler" | "fdp" | "baldness";
+  accent: "cyan" | "orange";
+  featured?: boolean;
+};
+
+export const projects: Project[] = [
   {
-    title: "Upscaler-AI",
+    number: "01",
+    name: "Upscaler-AI",
+    tagline: "AI-powered image processing system",
+    category: "AI Infrastructure",
+    status: "FLAGSHIP",
     description:
-      "Production image-upscaling pipeline. Docker microservices, Real-ESRGAN + GFPGAN, WebSockets streaming, n8n automation.",
+      "A scalable microservices ecosystem for high-performance image upscaling on both NVIDIA GPU and CPU-only architectures.",
+    bullets: [
+      "Architected Docker microservices for super-resolution on NVIDIA GPU and CPU-only systems.",
+      "Integrated Real-ESRGAN and GFPGAN for upscaling and face restoration, with automated NIQE quality assessment.",
+      "Built a full-stack interface with WebSocket feedback and n8n orchestration for production deployment.",
+    ],
+    tech: ["Docker", "Real-ESRGAN", "GFPGAN", "NIQE", "WebSockets", "n8n", "Python"],
     href: "https://github.com/Jayashri2908",
-    tech: ["Docker", "Real-ESRGAN", "GFPGAN", "WebSockets", "n8n"],
+    hrefLabel: "View on GitHub",
     visual: "upscaler",
+    accent: "cyan",
+    featured: true,
   },
   {
-    title: "FDP Management Platform",
+    number: "02",
+    name: "FDP Platform",
+    tagline: "Faculty Development Program management",
+    category: "Full-Stack SaaS",
+    status: "LIVE",
     description:
-      "Full-stack Faculty Development Program platform for Vishwakarma University. React + TypeScript + Firebase.",
+      "A 14-microservice platform for managing Faculty Development Programs at Vishwakarma University, handling 10K+ users across 40+ events.",
+    bullets: [
+      "Built a 14-microservice SaaS (React + TypeScript, Node/Express + Python/Flask, 39 REST endpoints) that reduced administrative overhead by 40%.",
+      "Designed 3-role RBAC with real-time Firestore sync, batch certificate generation via Google Drive API, and DOCX/PDF/CSV reporting at 99.9% availability.",
+      "Registered and granted copyright by the Government of India's Copyright Office (Certificate No. LD-20250174733).",
+    ],
+    tech: ["React", "TypeScript", "Node.js", "Flask", "Firestore", "Google Drive API"],
     href: "https://vu-fdp.vercel.app",
-    tech: ["React", "TypeScript", "Firebase"],
+    hrefLabel: "Open live platform",
     visual: "fdp",
+    accent: "orange",
   },
   {
-    title: "Baldness Detection System",
+    number: "03",
+    name: "Baldness Detection",
+    tagline: "ML-based male pattern baldness prediction",
+    category: "ML / Computer Vision",
+    status: "PATENT UNDER REVIEW",
     description:
-      "ML-based baldness probability prediction with OpenCV. Patent under review.",
+      "A machine learning system predicting baldness probability from genetic markers, lifestyle factors, and physiological data.",
+    bullets: [
+      "Engineering an ML model that predicts baldness probability from genetic markers, lifestyle factors, and physiological data.",
+      "Developing age-specific prediction with OpenCV scalp analysis and pattern recognition.",
+      "Manuscript and patent currently under review.",
+    ],
+    tech: ["Python", "OpenCV", "Scikit-learn", "Machine Learning"],
     href: "https://github.com/Jayashri2908",
-    tech: ["Python", "OpenCV", "Machine Learning"],
+    hrefLabel: "View on GitHub",
     visual: "baldness",
-  },
-  {
-    title: "React 3D Pump Dashboard",
-    description:
-      "3D visualization dashboard for industrial pumps. Real-time telemetry, GLTF models, smooth Framer Motion transitions.",
-    href: "https://wilo.com",
-    tech: ["React Three Fiber", "Framer Motion", "Tailwind"],
-    visual: "pump",
+    accent: "cyan",
   },
 ];
 
-export const services = [
+export const publications = [
   {
-    service: "ML Engineering",
-    description:
-      "Production ML pipelines for image processing, computer vision, and generative AI.",
-    icon: "Brain",
+    type: "Conference paper",
+    title:
+      "Tracing the Evolution of AI and ML in Oncology: A Systematic Metadata Analysis",
+    authors: "Dachawar, M., Tong, V., Utrankar, J., & Poornaprakash, S.",
+    venue: "ICSCDS-2025",
+    year: "2025",
+    identifier: "DOI: 10.1109/ICSCDS65426.2025.11167501",
+    href: "https://doi.org/10.1109/ICSCDS65426.2025.11167501",
   },
   {
-    service: "Full-Stack Development",
-    description:
-      "End-to-end web apps with React, TypeScript, Firebase, and modern backend infra.",
-    icon: "Code2",
-  },
-  {
-    service: "3D Web Experiences",
-    description:
-      "Interactive 3D dashboards using React Three Fiber, GLTF models, and real-time data.",
-    icon: "Box",
-  },
-  {
-    service: "AI Research",
-    description:
-      "Published in AI/ML for healthcare. PyTorch, LangChain, RAG pipelines.",
-    icon: "FlaskConical",
-  },
-  {
-    service: "Performance Tuning",
-    description:
-      "Sub-50ms latency UIs, optimized render pipelines, Docker deployments.",
-    icon: "Zap",
+    type: "Copyright",
+    title:
+      "A Comprehensive Management System for Educational and Professional Development Programs",
+    authors: "Utrankar, J., Gaikwad, V., & Ved, T.",
+    venue: "Copyright Office of India",
+    year: "2025",
+    identifier: "Certificate No. LD-20250174733",
+    href: "https://vu-fdp.vercel.app",
   },
 ];
 
-export const now = [
-  { label: "Building", value: "3D Pump Dashboard for Wilo", icon: "Code2" },
-  { label: "Learning", value: "RAG pipelines, vector DBs, agentic workflows", icon: "BookOpen" },
-  { label: "Reading", value: "Papers on diffusion models for medical imaging", icon: "BookOpen" },
+export const skillGroups = [
+  {
+    label: "Languages",
+    accent: "cyan" as const,
+    skills: ["Java", "C", "C++", "Python", "SQL", "JavaScript", "TypeScript"],
+  },
+  {
+    label: "AI / ML & Data",
+    accent: "orange" as const,
+    skills: [
+      "PyTorch",
+      "Generative AI",
+      "OpenCV",
+      "Scikit-learn",
+      "CatBoost",
+      "LightGBM",
+      "RAG Pipelines",
+      "LangChain",
+      "Power BI",
+    ],
+  },
+  {
+    label: "Web & Tools",
+    accent: "cyan" as const,
+    skills: [
+      "React",
+      "Node.js",
+      "Django",
+      "FastAPI",
+      "Vite",
+      "Tailwind CSS",
+      "Three.js",
+      "Docker",
+      "WebSockets",
+      "n8n",
+      "Git",
+      "Linux / Unix",
+      "REST APIs",
+    ],
+  },
+  {
+    label: "Databases",
+    accent: "orange" as const,
+    skills: ["Firebase", "SQLite"],
+  },
 ];
 
-export const navLinks = [
-  { href: "#home", text: "Home" },
-  { href: "#about", text: "About" },
-  { href: "#projects", text: "Work" },
-  { href: "#experience", text: "Path" },
-  { href: "#contact", text: "Contact" },
+export const education = [
+  {
+    period: "2023 — 2027",
+    qualification: "B.Tech Computer Science & Engineering",
+    institution: "Vishwakarma University, Pune",
+    score: "CGPA 8.66",
+  },
+  {
+    period: "2022",
+    qualification: "12th Grade (HSC)",
+    institution: "SSMV Jr. College, Yeola",
+    score: "84%",
+  },
+  {
+    period: "2020",
+    qualification: "10th Grade (SSC)",
+    institution: "De-Paul English Medium School, Yeola",
+    score: "91.2%",
+  },
+];
+
+export const certifications = [
+  "AWS Academy Cloud Architecting",
+  "IBM Full Stack Software Developer",
+];
+
+export const achievements = [
+  "Band of Agents 2026",
+  "Flipkart Grid 2.0",
+  "IBM Watson Hackathon",
+];
+
+export const techTicker = [
+  "PyTorch",
+  "TypeScript",
+  "React 19",
+  "FastAPI",
+  "OpenCV",
+  "Docker",
+  "Firebase",
+  "Real-ESRGAN",
+  "LangChain",
+  "Three.js",
+  "Tailwind CSS",
+  "SQLite",
+  "WebSockets",
+  "n8n",
 ];

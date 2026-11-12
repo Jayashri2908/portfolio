@@ -36,3 +36,6 @@ next-env.d.ts
 
 # previews folder
 /previews
+
+# local design reference (not part of the site)
+/Screenshot*.png

@@ -1,29 +1,27 @@
-"use client";
-
 import Nav from "@/components/nav";
 import Hero from "@/components/hero";
 import About from "@/components/about";
-import Projects from "@/components/projects";
 import ExperienceTimeline from "@/components/experience-timeline";
-import Services from "@/components/services";
-import Now from "@/components/now";
+import Projects from "@/components/projects";
+import Research from "@/components/research";
+import Capabilities from "@/components/capabilities";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-background">
+    <>
       <Nav />
-      <main className="container grain">
+      <main id="main" tabIndex={-1}>
         <Hero />
         <About />
-        <Projects />
         <ExperienceTimeline />
-        <Services />
-        <Now />
+        <Projects />
+        <Research />
+        <Capabilities />
         <Contact />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
