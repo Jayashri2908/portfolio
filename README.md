@@ -74,6 +74,10 @@ npm run build    # production build (all routes prerendered)
 npm start
 ```
 
+On Windows, double-click **`run.bat`**. It installs dependencies on first run,
+starts the dev server, and opens http://localhost:3000 once the page is ready.
+Use `run.bat --no-open` if you do not want the browser launched.
+
 ## Site URL
 
 `lib/site-url.ts` resolves the canonical origin in this order:
